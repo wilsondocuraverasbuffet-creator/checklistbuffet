@@ -25,13 +25,16 @@ const CATEGORIES = [
     emoji: "🍰",
     items: [
       "Toalhas",
+      "Plaquinhas",
       "Suportes para comidas",
       "Cachepô",
       "Escadinha decorativa",
+      "Pista quente",
       "Plantas / Flores",
       "Suqueiras",
       "Copos de suco",
       "Jarra de iogurte",
+      "Colher mexedor igurte",
       "Suporte granola",
       "Suporte salada de frutas",
       "Colheres salada de frutas",
@@ -54,6 +57,9 @@ const CATEGORIES = [
       "Pegador",
       "Toalha mesa",
       "Tabuleiro",
+      "Suco",
+      "Salada de frutas",
+      "Pão de queijo",
       "Cooler",
       "Saco de papel p/ pão de queijo",
       "Faca e colher",
@@ -63,6 +69,7 @@ const CATEGORIES = [
       "Álcool de limpeza",
       "Flanelas",
       "Pano de prato",
+      "Inseticida",
       "Outro"
     ]
   }
