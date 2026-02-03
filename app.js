@@ -1,9 +1,3 @@
-/* =========================================================
-   CHECKLIST – BUFFET DE CORRIDA
-   Versão: Atualizada com novos itens
-   Modo: Offline / GitHub Pages / Firebase-ready
-========================================================= */
-
 let currentId = null;
 
 const CATEGORIES = [
