@@ -7,6 +7,7 @@ const CATEGORIES = [
     emoji: "☕",
     items: [
       "Cafeteira",
+      "Funil",
       "Chaleira",
       "Pó de café",
       "Açúcar",
@@ -34,7 +35,7 @@ const CATEGORIES = [
       "Suqueiras",
       "Copos de suco",
       "Jarra de iogurte",
-      "Colher mexedor igurte",
+      "Colher mexedor iogurte",
       "Suporte granola",
       "Suporte salada de frutas",
       "Colheres salada de frutas",
