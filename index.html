@@ -5,25 +5,28 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#2F6B4F" />
   <title>Checklist – Buffet de Corrida</title>
-  <link rel="manifest" href="manifest.webmanifest" />
+
   <style>
-    :root{ --primary:#2F6B4F; --bg:#ffffff; --muted:#666; --card:#f7f7f7; --border:#e6e6e6; }
+    :root{ --primary:#2F6B4F; --bg:#fff; --muted:#666; --card:#f7f7f7; --border:#e6e6e6; }
     *{box-sizing:border-box}
     body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:#111; }
-    header{
-      padding:14px 16px 12px; border-bottom:1px solid var(--border);
-      position:sticky; top:0; background:var(--bg); z-index:10;
-      display:flex; gap:12px; align-items:center;
-    }
-    .brand{ display:flex; gap:10px; align-items:center; min-width:0; }
-    .brand img{ width:44px; height:44px; border-radius:12px; border:1px solid var(--border); background:#fff; object-fit:contain; }
-    header h1{ margin:0; font-size:16px; line-height:1.2; }
+    header{ padding:14px 16px 12px; border-bottom:1px solid var(--border); position:sticky; top:0; background:var(--bg); z-index:10; }
+    header h1{ margin:0; font-size:16px; }
     header p{ margin:4px 0 0; color:var(--muted); font-size:12px; }
+
     main{ padding:16px; max-width:980px; margin:0 auto; }
-    .grid{ display:grid; gap:12px; }
-    @media(min-width:900px){ .grid{ grid-template-columns:1.2fr 0.8fr; align-items:start; } }
     .card{ background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px; }
-    .card h2{ margin:0 0 10px; font-size:16px; }
+    .grid{ display:grid; gap:12px; }
+    @media(min-width:900px){ .grid{ grid-template-columns: 1.2fr 0.8fr; align-items:start; } }
+
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+    button{
+      appearance:none; border:1px solid var(--border); background:#fff; color:#111;
+      padding:12px 14px; border-radius:12px; cursor:pointer; font-size:14px;
+    }
+    button.primary{ background:var(--primary); border-color:var(--primary); color:#fff; }
+    .hint{ font-size:12px; color:var(--muted); margin-top:8px; }
+
     .row{ display:grid; gap:10px; }
     @media(min-width:560px){ .row{ grid-template-columns:1fr 1fr; } }
     label{ font-size:13px; color:var(--muted); }
@@ -32,6 +35,7 @@
       border-radius:10px; background:#fff; font-size:14px;
     }
     textarea{ min-height:90px; resize:vertical; }
+
     .cat-title{ display:flex; align-items:center; gap:8px; font-weight:700; margin:10px 0 8px; }
     .cat-title span{ font-size:18px; }
     .item{
@@ -47,90 +51,88 @@
     .pill[data-active="true"]{ border-color:var(--primary); box-shadow:0 0 0 2px rgba(47,107,79,.12); }
     .pill.ok[data-active="true"]{ background:rgba(46,125,50,.10); border-color:rgba(46,125,50,.45); }
     .pill.falta[data-active="true"]{ background:rgba(198,40,40,.10); border-color:rgba(198,40,40,.55); }
-    .toolbar{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
-    button{
-      appearance:none; border:1px solid var(--border); background:#fff; color:#111;
-      padding:10px 12px; border-radius:12px; cursor:pointer; font-size:14px;
-    }
-    button.primary{ background:var(--primary); border-color:var(--primary); color:#fff; }
-    button.danger{ border-color:rgba(198,40,40,.5); color:#B71C1C; }
-    .hint{ font-size:12px; color:var(--muted); margin-top:8px; }
-    .list{ display:flex; flex-direction:column; gap:8px; }
-    .event{
-      background:#fff; border:1px solid var(--border); border-radius:12px; padding:10px;
-      display:flex; gap:10px; justify-content:space-between; align-items:flex-start;
-    }
-    .event small{ color:var(--muted); }
-    .event-actions{ display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
-    .badge{
-      display:inline-block; padding:3px 8px; border-radius:999px;
-      border:1px solid var(--border); font-size:12px; color:#111; background:#fff; margin-left:8px;
-    }
-    .badge.ok{ background:rgba(46,125,50,.10); }
-    .badge.warn{ background:rgba(198,40,40,.10); }
+
     .divider{ height:1px; background:var(--border); margin:12px 0; }
+
+    /* telas */
+    .hidden{ display:none; }
   </style>
 </head>
+
 <body>
   <header>
-    <div class="brand">
-      <img src="icon-192.png" alt="Logo Docura Vera's" />
-      <div>
-        <h1>CHECKLIST – BUFFET DE CORRIDA ✅</h1>
-        <p>Docura Vera's • Offline + por dispositivo (cada celular salva seu histórico)</p>
-      </div>
-    </div>
+    <h1>CHECKLIST – BUFFET DE CORRIDA ✅</h1>
+    <p>Escolha o tipo de buffet para abrir o checklist.</p>
   </header>
 
-  <main class="grid">
-    <section class="card">
-      <h2>Preenchimento</h2>
+  <main>
+    <!-- TELA 1: seleção do buffet -->
+    <section class="card" id="screenHome">
+      <h2 style="margin:0 0 6px;font-size:16px;">Selecione o buffet</h2>
+      <div class="hint">Cada opção abre um checklist diferente.</div>
 
-      <div class="row">
-        <div>
-          <label for="responsavel">Responsável</label>
-          <input id="responsavel" type="text" placeholder="Nome de quem conferiu" />
-        </div>
-        <div>
-          <label for="dataEvento">Data do evento</label>
-          <input id="dataEvento" type="date" />
-        </div>
+      <div class="btnRow">
+        <button class="primary" id="btnSimples">Buffet simples</button>
+        <button class="primary" id="btnCompleto">Buffet completo</button>
+        <button class="primary" id="btnPremium">Buffet premium</button>
       </div>
 
       <div class="divider"></div>
-      <div id="checklistRoot"></div>
-
-      <div class="divider"></div>
-
-      <div>
-        <label for="observacoes">Observações</label>
-        <textarea id="observacoes" placeholder="Itens faltantes, avarias, quantidade insuficiente, etc."></textarea>
+      <div class="hint">
+        Dica iPhone: abra pelo Safari e “Adicionar à Tela de Início”.
       </div>
-
-      <div class="toolbar">
-        <button class="primary" id="btnSalvar">Salvar neste celular</button>
-        <button id="btnNovo">Novo (limpar)</button>
-        <button id="btnExportar">Exportar/Compartilhar CSV</button>
-        <button class="danger" id="btnApagar">Apagar este evento</button>
-      </div>
-
-      <div class="hint" id="statusHint"></div>
-      <div class="hint"><strong>Dica para equipe:</strong> ao final, use “Exportar/Compartilhar CSV” e envie no grupo do WhatsApp para centralizar.</div>
     </section>
 
-    <aside class="card">
-      <h2>Histórico neste dispositivo</h2>
-      <div class="hint">Toque em um evento para abrir. Tudo fica salvo no aparelho.</div>
-      <div class="divider"></div>
-      <div class="list" id="historyList"></div>
-      <div class="divider"></div>
-      <button id="btnBackup">Exportar backup JSON</button>
-      <button id="btnImportar">Importar backup JSON</button>
-      <input id="importFile" type="file" accept="application/json" style="display:none" />
-      <div class="hint">Use o backup para juntar históricos de vários celulares em um só (importar).</div>
-    </aside>
-  </main>
+    <!-- TELA 2: checklist -->
+    <section class="grid hidden" id="screenChecklist">
+      <section class="card">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+          <h2 style="margin:0;font-size:16px;" id="buffetTitle">Checklist</h2>
+          <button id="btnVoltar">Voltar</button>
+        </div>
 
-  <script src="app.js"></script>
+        <div class="divider"></div>
+
+        <div class="row">
+          <div>
+            <label for="responsavel">Responsável</label>
+            <input id="responsavel" type="text" placeholder="Nome de quem conferiu" />
+          </div>
+          <div>
+            <label for="dataEvento">Data do evento</label>
+            <input id="dataEvento" type="date" />
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <div id="checklistRoot"></div>
+
+        <div class="divider"></div>
+
+        <div>
+          <label for="observacoes">Observações</label>
+          <textarea id="observacoes" placeholder="Itens faltantes, avarias, quantidades, etc."></textarea>
+        </div>
+
+        <div class="btnRow">
+          <button class="primary" id="btnSalvar">Salvar (no dispositivo)</button>
+          <button id="btnNovo">Novo (limpar)</button>
+          <button id="btnExportar">Exportar CSV</button>
+          <button id="btnApagar">Apagar este registro</button>
+        </div>
+
+        <div class="hint" id="statusHint"></div>
+      </section>
+
+      <aside class="card">
+        <h2 style="margin:0 0 6px;font-size:16px;">Histórico deste buffet (no aparelho)</h2>
+        <div class="hint">Os registros ficam separados por tipo: Simples / Completo / Premium.</div>
+        <div class="divider"></div>
+        <div id="historyList"></div>
+      </aside>
+    </section>
+
+    <script src="app.js"></script>
+  </main>
 </body>
 </html>
